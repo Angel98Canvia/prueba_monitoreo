@@ -1,14 +1,7 @@
 from django.db import models
 
-class BaseModel(models.Model):
-    """
-    For future abstraction.
-    """
-    class Meta:
-        abstract=True # specify this model as an Abstract Model
-        app_label = 'INVENTORY'
 
-class PROYECTO(BaseModel):
+class PROYECTO(models.Model):
     NOMBRE = models.CharField(max_length=255)
     ALP = models.CharField(max_length=100)
     FECHA_INICIO = models.DateField()
@@ -25,7 +18,7 @@ class PROYECTO(BaseModel):
     class Meta:
         db_table = 'PROYECTO'
 
-class EQUIPO(BaseModel):
+class EQUIPO(models.Model):
     ID_PROYECTO = models.ForeignKey('PROYECTO', on_delete=models.CASCADE)
     NOMBRE = models.CharField(max_length=255)
     DETALLE_ADMINISTRACION = models.CharField(max_length=255)
@@ -96,7 +89,7 @@ class EQUIPO(BaseModel):
         db_table = 'EQUIPO'
 
 
-class EQUIPOIP(BaseModel):
+class EQUIPOIP(models.Model):
     ID_EQUIPO = models.OneToOneField('EQUIPO', on_delete=models.CASCADE, primary_key=True)
     NRO_IP = models.CharField(max_length=200)
     MASCARA = models.CharField(max_length=200)

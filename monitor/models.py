@@ -1,14 +1,7 @@
 from django.db import models
 
-class BaseModel(models.Model):
-    """
-    For future abstraction.
-    """
-    class Meta:
-        abstract=True # specify this model as an Abstract Model
-        app_label = 'MONITOR'
 
-class CONFREMEDY(BaseModel):
+class CONFREMEDY(models.Model):
 
     IDCONFREMEDY = models.AutoField(primary_key=True)
     IDATRIBUTO = models.CharField(max_length=255)
@@ -24,7 +17,7 @@ class CONFREMEDY(BaseModel):
     class Meta:
         db_table = 'CONF_REMEDY'
 
-class CONTROLITSM(BaseModel):
+class CONTROLITSM(models.Model):
     IDCONTROLITSM = models.AutoField(primary_key=True)
     IDCENTRALIZADOR = models.IntegerField()
     URL = models.CharField(max_length=300)
@@ -41,7 +34,7 @@ class CONTROLITSM(BaseModel):
     class Meta:
         db_table = 'CONTROL_ITSM'
 
-class MATRIZPRIORIDAD(BaseModel):
+class MATRIZPRIORIDAD(models.Model):
     IDMATRIZ = models.AutoField(primary_key=True)
     IMPACTO = models.SmallIntegerField(default=0)
     URGENCIA = models.SmallIntegerField(default=0)
@@ -56,7 +49,7 @@ class MATRIZPRIORIDAD(BaseModel):
     class Meta:
         db_table = 'MATRIZ_PRIORIDAD'
 
-class MONITOR(BaseModel):
+class MONITOR(models.Model):
     IDMONITOR = models.AutoField(primary_key=True)
     CLIENT = models.CharField(max_length=100, null=True, blank=True)
     ALERTID = models.CharField(max_length=255, null=True, blank=True)
@@ -74,7 +67,7 @@ class MONITOR(BaseModel):
     class Meta:
         db_table = 'MONITOR'
 
-class OPCIONE(BaseModel):
+class OPCIONE(models.Model):
     IDOPCION = models.AutoField(primary_key=True)
     ATRIBUTO = models.CharField(max_length=512)
     VALOR = models.CharField(max_length=512)
@@ -98,7 +91,7 @@ class OPCIONE(BaseModel):
         db_table = 'OPCIONES'
 
 
-class CENTRALIZADOR(BaseModel):
+class CENTRALIZADOR(models.Model):
     IDCENTRALIZADOR = models.AutoField(primary_key=True)
     CENTRALIZADOR = models.CharField(max_length=255)
     IDCLIENTE = models.ForeignKey(OPCIONE, on_delete=models.CASCADE)
@@ -111,7 +104,7 @@ class CENTRALIZADOR(BaseModel):
     class Meta:
         db_table = 'CENTRALIZADOR'
 
-class INVENTARIO(BaseModel):
+class INVENTARIO(models.Model):
     IDINVENTARIO = models.AutoField(primary_key=True)
     CLIENT = models.CharField(max_length=255)
     HOSTNAME = models.CharField(max_length=255)
@@ -134,7 +127,7 @@ class INVENTARIO(BaseModel):
     class Meta:
         db_table = 'INVENTARIO'
 
-class USUARIO(BaseModel):
+class USUARIO(models.Model):
     IDUSUARIO = models.AutoField(primary_key=True)
     USUARIO = models.CharField(max_length=50)
     PWD = models.BinaryField(max_length=8000)
@@ -153,7 +146,7 @@ class USUARIO(BaseModel):
     class Meta:
         db_table = 'USUARIOS'
 
-class CENTRALIZADORPERFIL(BaseModel):
+class CENTRALIZADORPERFIL(models.Model):
     IDCENTRALIZADORPERFIL = models.AutoField(primary_key=True)
     PERFIL = models.CharField(max_length=255)
     IDCENTRALIZADOR = models.ForeignKey('CENTRALIZADOR', on_delete=models.CASCADE)
@@ -167,7 +160,7 @@ class CENTRALIZADORPERFIL(BaseModel):
     class Meta:
         db_table = 'CENTRALIZADOR_PERFIL'
 
-class CENTRALIZADORDETALLE(BaseModel):
+class CENTRALIZADORDETALLE(models.Model):
     IDCENTRALIZADORDETALLE = models.AutoField(primary_key=True)
     IDCENTRALIZADORPERFIL = models.ForeignKey('CENTRALIZADORPERFIL', on_delete=models.CASCADE)
     AVANZADO = models.BooleanField(default=True)
